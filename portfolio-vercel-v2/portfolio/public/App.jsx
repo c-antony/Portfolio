@@ -237,6 +237,20 @@ export default function Portfolio() {
         ::-webkit-scrollbar-thumb { background: ${ACCENT3}88; border-radius: 3px; }
         ::selection { background: ${ACCENT}44; }
         a { color: inherit; text-decoration: none; }
+        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .edu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 60px; }
+        .nav-links { display: flex; gap: 6px; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+        @media (max-width: 768px) {
+          .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .skills-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+          .projects-grid { grid-template-columns: 1fr !important; }
+          .edu-grid { grid-template-columns: 1fr !important; margin-bottom: 30px !important; }
+          .nav-links { display: none !important; }
+          .footer-inner { flex-direction: column !important; gap: 12px !important; text-align: center !important; }
+        }
       `}</style>
 
       {/* Background grid */}
@@ -256,7 +270,7 @@ export default function Portfolio() {
         background: "rgba(8,12,20,0.85)",
         backdropFilter: "blur(20px)",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
-        padding: "0 40px",
+        padding: "0 clamp(16px, 4vw, 40px)",
         height: 60,
         display: "flex",
         alignItems: "center",
@@ -266,7 +280,7 @@ export default function Portfolio() {
           <span style={{ color: ACCENT }}>C.A.</span>
           <span style={{ color: "#fff" }}>T</span>
         </div>
-        <div style={{ display: "flex", gap: 6 }}>
+        <div className="nav-links">
           {navItems.map(n => (
             <button key={n.id} onClick={() => scrollTo(n.id)}
               onMouseEnter={() => setHoveredNav(n.id)}
@@ -299,9 +313,9 @@ export default function Portfolio() {
       </nav>
 
       {/* HERO */}
-      <section id="profil" style={{ position: "relative", zIndex: 1, minHeight: "100vh", display: "flex", alignItems: "center", padding: "120px 40px 80px" }}>
+      <section id="profil" style={{ position: "relative", zIndex: 1, minHeight: "100vh", display: "flex", alignItems: "center", padding: "clamp(80px, 12vw, 120px) clamp(20px, 4vw, 40px) 80px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
+          <div className="hero-grid">
             <div>
               {/* Photo */}
               <div style={{ marginBottom: 24 }}>
@@ -312,9 +326,19 @@ export default function Portfolio() {
                   boxShadow: `0 0 28px ${ACCENT}44`,
                   display: "inline-block",
                 }}>
-                  <img src="/linkl.jpg" alt="Christ Antony TCHOKOGUEU"
+                  <img src="./linkl.jpg" alt="Christ Antony TCHOKOGUEU"
+                    onError={e => {
+                      e.target.style.display = "none";
+                      e.target.nextSibling.style.display = "flex";
+                    }}
                     style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }}
                   />
+                  <div style={{
+                    display: "none", width: "100%", height: "100%", borderRadius: "50%",
+                    background: `linear-gradient(135deg, ${ACCENT3}, ${ACCENT})`,
+                    alignItems: "center", justifyContent: "center",
+                    fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 28, color: "#fff",
+                  }}>CA</div>
                 </div>
               </div>
               <div style={{
@@ -425,12 +449,12 @@ export default function Portfolio() {
       </section>
 
       {/* SKILLS */}
-      <section id="competences" style={{ position: "relative", zIndex: 1, padding: "80px 40px" }}>
+      <section id="competences" style={{ position: "relative", zIndex: 1, padding: "clamp(40px, 8vw, 80px) clamp(20px, 4vw, 40px)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <AnimSection>
             <SectionTitle accent={ACCENT}>Compétences</SectionTitle>
           </AnimSection>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40 }}>
+          <div className="skills-grid">
             <AnimSection delay={0.1}>
               <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 20, padding: "28px" }}>
                 <h3 style={{ fontFamily: "'Syne', sans-serif", fontSize: 15, fontWeight: 700, color: ACCENT, marginBottom: 24, letterSpacing: "0.05em", textTransform: "uppercase" }}>Compétences techniques</h3>
@@ -476,7 +500,7 @@ export default function Portfolio() {
       </section>
 
       {/* EXPERIENCES */}
-      <section id="experiences" style={{ position: "relative", zIndex: 1, padding: "80px 40px" }}>
+      <section id="experiences" style={{ position: "relative", zIndex: 1, padding: "clamp(40px, 8vw, 80px) clamp(20px, 4vw, 40px)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <AnimSection>
             <SectionTitle accent={ACCENT2}>Expériences</SectionTitle>
@@ -516,7 +540,7 @@ export default function Portfolio() {
                   </div>
 
                   {exp.projects ? (
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+                    <div className="projects-grid">
                       {exp.projects.map((proj, pi) => (
                         <div key={pi} style={{
                           background: "rgba(255,255,255,0.03)",
@@ -550,12 +574,12 @@ export default function Portfolio() {
       </section>
 
       {/* FORMATION */}
-      <section id="formation" style={{ position: "relative", zIndex: 1, padding: "80px 40px 120px" }}>
+      <section id="formation" style={{ position: "relative", zIndex: 1, padding: "clamp(40px, 8vw, 80px) clamp(20px, 4vw, 40px) 120px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <AnimSection>
             <SectionTitle accent={ACCENT3}>Formation</SectionTitle>
           </AnimSection>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginBottom: 60 }}>
+          <div className="edu-grid">
             {data.education.map((e, i) => (
               <AnimSection key={i} delay={i * 0.1}>
                 <div style={{
@@ -629,10 +653,10 @@ export default function Portfolio() {
       <footer style={{
         position: "relative", zIndex: 1,
         borderTop: "1px solid rgba(255,255,255,0.06)",
-        padding: "28px 40px",
-        display: "flex", justifyContent: "space-between", alignItems: "center",
+        padding: "28px clamp(20px, 4vw, 40px)",
         background: "rgba(8,12,20,0.9)",
       }}>
+        <div className="footer-inner">
         <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 14 }}>
           <span style={{ color: ACCENT }}>C.A.</span><span style={{ color: "#fff" }}>TCHOKOGUEU</span>
         </span>
@@ -647,6 +671,7 @@ export default function Portfolio() {
           padding: "6px 14px",
           borderRadius: 8,
         }}>{data.contact.email}</a>
+        </div>
       </footer>
     </div>
   );
