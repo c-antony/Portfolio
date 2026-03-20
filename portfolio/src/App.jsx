@@ -303,6 +303,20 @@ export default function Portfolio() {
         <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
             <div>
+              {/* Photo */}
+              <div style={{ marginBottom: 24 }}>
+                <div style={{
+                  width: 90, height: 90, borderRadius: "50%",
+                  background: `linear-gradient(135deg, ${ACCENT3}, ${ACCENT})`,
+                  padding: 3,
+                  boxShadow: `0 0 28px ${ACCENT}44`,
+                  display: "inline-block",
+                }}>
+                  <img src="/linkl.jpg" alt="Christ Antony TCHOKOGUEU"
+                    style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }}
+                  />
+                </div>
+              </div>
               <div style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 background: `${ACCENT}12`, border: `1px solid ${ACCENT}33`,
